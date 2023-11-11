@@ -1,0 +1,199 @@
+$dark: #E5DDD2;
+$light: #FBF6F0;
+$lightish: #F3EDE4;
+$primary: #3F1A04;
+$primary-dark: #2E1201;
+$primary-light: #745947;
+$nav: #AB9A82;
+$nav-selected: #897252;
+
+* { box-sizing: border-box; }
+
+body { 
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: $dark;
+    font-family: 'Playfair Display', serif;
+}
+
+.container {
+    padding-left: 10vw;
+}
+
+header {
+    height: 10vh;
+
+    .container {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu {
+        background-color: $light;
+        padding: 30px 20px;
+    }
+}
+
+main {
+    height: 90vh;
+
+    nav {
+        position: absolute;
+        top: 500px;
+        left: 40px;
+        z-index: 20;
+
+        .page {
+            position: absolute;
+            border-radius: 50%;
+            height: 6px;
+            width: 6px;
+            background-color: $nav;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $nav-selected;
+                height: 8px;
+                width: 8px;
+                left: -1px;
+            }
+            &.selected {
+                background-color: $nav-selected;
+                height: 8px;
+                width: 8px;
+                left: -1px;
+            }
+
+            &:nth-child(2) {
+                top: 30px;
+            }
+
+            &:nth-child(3) {
+                top: 60px;
+            }
+
+            &:nth-child(4) {
+                top: 90px;
+            }
+        }
+    }
+
+    ol.pages {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        counter-set: header 0 nextpage 1;
+
+
+        > li {
+            height: 100%;
+            display: flex;
+            counter-increment: header;
+            transition: all .6s ease;
+
+            .left-col, .right-col {
+                position: relative;
+                flex: 1;
+                min-width: 0; // Needed to allow text to overlap otherwise left column pushes right
+            }
+            .right-col {
+                z-index: 1;
+            }
+            .left-col {
+                z-index: 2;
+            }
+            .image {
+                height: 100%;
+                background-size: cover;
+            }
+        }
+
+        h2 {
+            font-size: 50px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: $primary;
+            white-space: nowrap;
+            
+            &::before {
+                display: block;
+                margin-bottom: 30px;
+                font-size: 60px;
+                content: "0" counter(header) "."
+            }
+        }
+        
+        p { 
+            color: $primary;
+            line-height: 2;
+            padding-right: 70px;
+        }
+    }
+
+    footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+
+        ol {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100%;
+
+            > li {
+                width: 100%;
+                height: 150px;
+                padding-left: 20px;
+                transition: all .5s ease;
+                background-color: $light;
+                display: flex;
+                align-items: stretch;
+                align-content: center;
+                justify-content: space-between;
+                counter-increment: nextpage;
+
+                h3 {
+                    position: relative;
+                    margin: 0;
+                    display: flex;
+                    flex-direction: column;
+                    color: $primary-light;
+                    font-size: 25px;
+                    text-transform: uppercase;
+                    font-weight: 400;
+
+                    &::before {
+                        font-weight: 600;
+                        font-size: 40px;
+                        color: $primary-light;
+                        content: "0" counter(nextpage) ".";
+                    }
+                }
+
+                .next-page {
+                    display: flex;
+                    align-items: center;
+                }
+                .thumbnail {
+                    padding: 20px;
+                    img { height: 70%; }
+                }
+                .next-arrow {
+                    display: flex;
+                    align-items: center;
+                    img { height: 20%; }
+                    padding: 0 20px;
+                    background-color: $lightish;
+                }
+            }
+        }
+    }
+}
